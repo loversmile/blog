@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>local</title>
+</head>
+<body>
+<form id="formDemo" action="http://localhost:8080/appmessage/add" method="post">
+    <input type="text" name="id" /><br />
+    <input type="text" name="message" /><br />
+    <input type="text" name="senddate" /><br />
+    <input type="submit" value="submit" onclick="getUser()"/>
+</form>
+<!-- http://localhost:8080/appmessage/add >-->
+</body>
+<script type="application/javascript">
+    function getUser(){
+        console.log($('#formDemo').serializeJSON());
+        console.log(JSON.stringify($('#formDemo').serializeJSON()));
+        return JSON.stringify($('#formDemo').serializeJSON());
+    }
+</script>
+</html>
