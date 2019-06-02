@@ -2,9 +2,7 @@ package com.jklou.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Iterator;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/mydb")
+@RequestMapping("/me")
 public class DBController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -37,7 +35,7 @@ public class DBController {
     }
 
     @RequestMapping("/user/{id}")
-    public Map<String,Object> getUser(@PathVariable String id){
+    public Map<String,Object> getUser(@PathVariable int id){
         Map<String,Object> map = null;
 
         List<Map<String, Object>> list = getDbType();
@@ -48,13 +46,42 @@ public class DBController {
 
             for (String key : set) {
                 if(key.equals("id")){
+                    System.out.println(dbmap.get(key));
+                    System.out.println(id);
                     if(dbmap.get(key).equals(id)){
                         map = dbmap;
+                        System.out.println(map);
                     }
                 }
             }
         }
 
+        if(map==null) {
+            map = list.get(0);
+            System.out.println("map is null");
+        }
+        return map;
+    }
+
+    @RequestMapping(value = "/getuser")
+    public Map<String, Object> getUserByName(@RequestParam("username") String username) {
+        System.out.println(username);
+        Map<String, Object> map = null;
+        List<Map<String, Object>> list = getDbType();
+
+        for (Map<String, Object> dbmap : list) {
+            Set<String> set = dbmap.keySet();
+
+            for (String key : set) {
+                if (key.equals("username")) {
+                    System.out.println(dbmap.get(key));
+                    System.out.println(username);
+                    if(dbmap.get(key).equals(username)){
+                        map = dbmap;
+                    }
+                }
+            }
+        }
         if(map==null)
             map = list.get(0);
         return map;
