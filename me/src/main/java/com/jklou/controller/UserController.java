@@ -10,14 +10,14 @@ import java.util.Map;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/me")
-public class DBController {
+@RequestMapping("/user")
+public class UserController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @RequestMapping("/getUsers")
     public List<Map<String, Object>> getDbType(){
-        String sql = "select * from appuser";
+        String sql = "select * from user";
         List<Map<String, Object>> list =  jdbcTemplate.queryForList(sql);
         for (Map<String, Object> map : list) {
             Set<Map.Entry<String, Object>> entries = map.entrySet( );
