@@ -13,6 +13,19 @@ public class UserLogin {
 
     private int login_timeout;
 
+    public UserLogin(String user_id, String session, Date login_time, String login_timestamp, int login_timeout) {
+        this.user_id = user_id;
+        this.session = session;
+        this.login_time = login_time;
+        this.login_timestamp = login_timestamp;
+        this.login_timeout = login_timeout;
+    }
+
+    public UserLogin() {
+        this.login_time = new Date();
+        this.login_timeout = 30;
+    }
+
     public String getUser_id() {
         return user_id;
     }

@@ -1,5 +1,8 @@
 package com.jklou.controller;
 
+import com.jklou.bean.UserBean;
+import com.jklou.bean.UserBean;
+import com.jklou.service.UserBeanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,8 @@ import java.util.Set;
 public class UserController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    private UserBeanService service;
 
     @RequestMapping("/getUsers")
     public List<Map<String, Object>> getDbType(){
@@ -85,5 +90,12 @@ public class UserController {
         if(map==null)
             map = list.get(0);
         return map;
+    }
+
+    @RequestMapping("/listUsers")
+    public List<UserBean> listUsers() {
+        System.out.println("Come heere");
+        List<UserBean> user = service.listUsers();
+        return user;
     }
 }

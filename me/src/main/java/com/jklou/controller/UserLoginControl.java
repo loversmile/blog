@@ -14,7 +14,7 @@ public class UserLoginControl {
     private UserLoginService service;
 
     @RequestMapping("/updateSession")
-    public int updateSessionById(@RequestParam("id") String id, @RequestParam("session") String session, @RequestParam("login_timestamp") String login_timestamp){
+    public int updateSession(@RequestParam("id") String id, @RequestParam("session") String session, @RequestParam("login_timestamp") String login_timestamp){
         // System.out.println(userLogin);
         UserLogin userLogin = new UserLogin();
         userLogin.setUser_id(id);
@@ -24,6 +24,8 @@ public class UserLoginControl {
         System.out.println(userLogin.getUser_id());
         System.out.println(userLogin.getLogin_timestamp());
         System.out.println(userLogin.getSession());
+        System.out.println(userLogin.getLogin_time());
+        System.out.println(userLogin.getLogin_timeout());
         return service.updateSession(userLogin);
     }
     @RequestMapping("/test")
