@@ -18,7 +18,7 @@
 
     <select id="listAll" resultMap="BaseResultMap">
       select
-         id, phone, username, password, gender, trueName, birthday, email, personnalBrief, avatarImgUrl, recentlyLanded
+         id, phone, username, password, gender, trueName, birthday, email, personalBrief, avatarImgUrl, recentlyLanded
       from user
       order by id asc
     </select>

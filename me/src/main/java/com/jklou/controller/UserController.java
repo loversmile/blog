@@ -1,8 +1,8 @@
 package com.jklou.controller;
 
 import com.jklou.bean.UserBean;
-import com.jklou.bean.UserBean;
 import com.jklou.service.UserBeanService;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +14,12 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
+@MapperScan("com.jklou.mapper")
 public class UserController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
     private UserBeanService service;
 
     @RequestMapping("/getUsers")
