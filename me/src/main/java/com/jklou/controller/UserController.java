@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -96,8 +99,41 @@ public class UserController {
 
     @RequestMapping("/listUsers")
     public List<UserBean> listUsers() {
-        System.out.println("Come heere");
         List<UserBean> user = service.listUsers();
         return user;
+    }
+
+    @RequestMapping(value = "/setCookies", method = RequestMethod.GET)
+    public String SetCookies(HttpServletResponse response) {
+        Cookie cookie=new Cookie("sessionId","CookieTestInfo");
+        response.addCookie(cookie);
+        return "获得cookies信息成功";
+    }
+
+    @RequestMapping(value = "/getCookies",method = RequestMethod.GET)
+    public  Cookie[] getCookies(HttpServletRequest request) {
+        //HttpServletRequest 装请求信息类
+        //HttpServletResponse 装相应信息的类
+        //   Cookie cookie=new Cookie("sessionId","CookieTestInfo");
+        Cookie[] cookies = request.getCookies();
+        String cookiesString = "";
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                /*if (cookie.getName().equals("sessionId")) {
+                    return cookie.getValue();
+                }*/
+                cookiesString += cookie.getName() + ": " + cookie.getValue() + "\n";
+            }
+        }
+
+        // return cookiesString;
+        return cookies;
+    }
+
+    @RequestMapping(value = "/testCookieValue")
+    public String testCookieValue(@CookieValue("sessionId") String sessionId) {
+        System.out.println("testCookieValue,sessionId="+sessionId);
+
+        return "SUCCESS [" + sessionId + "]";
     }
 }

@@ -16,7 +16,6 @@ public class UserBeanService {
     public List<UserBean> listUsers(){
         List<UserBean> list = new ArrayList<UserBean>();
         list = userBeanMapper.listAll();
-        System.out.println(list);
         return list;
     }
 }
